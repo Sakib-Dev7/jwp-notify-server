@@ -36,14 +36,22 @@ router.post("/", async (req, res) => {
 
     let payload: any;
 
+    // if (eventType === "media_created") {
+    //   payload = { notification: { title: "New Video Uploaded", body: titleText }, data: { type: "media", id: mediaId } };
+    // } else if (eventType === "media_updated") {
+    //   payload = { notification: { title: "Video Updated", body: titleText }, data: { type: "media", id: mediaId } };
+    // } else if (eventType === "channel_active") {
+    //   payload = { notification: { title: "Live Started", body: `The channel "${media.name || "Channel"}" is now live!` }, data: { type: "live", id: media.channel_id } };
+    // } else {
+    //   payload = { notification: { title: eventType.replace(/_/g, " ").replace(/\b\w/g, (c: string) => c.toUpperCase()), body: titleText }, data: { type: "media", id: mediaId } };
+    // }
+
     if (eventType === "media_created") {
       payload = { notification: { title: "New Video Uploaded", body: titleText }, data: { type: "media", id: mediaId } };
     } else if (eventType === "media_updated") {
       payload = { notification: { title: "Video Updated", body: titleText }, data: { type: "media", id: mediaId } };
-    } else if (eventType === "channel_active") {
+    } else (eventType === "channel_active") {
       payload = { notification: { title: "Live Started", body: `The channel "${media.name || "Channel"}" is now live!` }, data: { type: "live", id: media.channel_id } };
-    } else {
-      payload = { notification: { title: eventType.replace(/_/g, " ").replace(/\b\w/g, (c: string) => c.toUpperCase()), body: titleText }, data: { type: "media", id: mediaId } };
     }
 
     const savedNotification = await insertNotification({
